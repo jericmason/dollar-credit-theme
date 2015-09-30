@@ -36,6 +36,15 @@
         font-family: {{variables 'widgetCustomization.widgetFont'}};
       }
     </style>
+    <script type="text/javascript">
+      $(function() {
+        $('.btn-email').click(function() {
+          widget.rpc.ready(function() {
+            widget.rpc.publish("copyEvent", { data : "payload information" });
+          });
+        });
+      });
+    </script>
   </head>
 
   <body>
