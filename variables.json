@@ -125,7 +125,7 @@
   			"type": "object",
   			"description": "Available Templates",
   			"default": {
-  				"REFERRER_REWARD_LIMIT_REACHED": "email/referrer-reward-limit", 
+  				"REFERRER_REWARD_LIMIT_REACHED": "email/referral-reward-limit", 
   				"REFERRAL_CONVERTED": "email/referral-converted", 
   				"REFERRAL_STARTED": "email/referral-started"
   			}
