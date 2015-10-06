@@ -117,5 +117,20 @@
       }
     }
   },
+  "email": {
+  	"title": "Customize Emails",
+  	"type": "object",
+  	"properties": {
+  		"templateMappings": {
+  			"type": "object",
+  			"description": "Available Templates",
+  			"default": {
+  				"REFERRER_REWARD_LIMIT_REACHED": "emails/referrer-reward-limit", 
+  				"REFERRAL_CONVERTED": "emails/referral-converted", 
+  				"REFERRAL_STARTED": "emails/referral-started"
+  			}
+  		}
+  	}
+  },
   "required": ["shareMessaging", "widgetCustomization"]
 }
