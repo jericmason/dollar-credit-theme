@@ -115,22 +115,22 @@
           }
         }
       }
+    },
+    "email": {
+  	  "title": "Customize Emails",
+  	  "type": "object",
+  	  "properties": {
+  		  "templateMappings": {
+  			  "type": "object",
+  			  "description": "Available Templates",
+  			  "default": {
+  			  	"REFERRER_REWARD_LIMIT_REACHED": "email/referral-reward-limit", 
+  				  "REFERRAL_CONVERTED": "email/referral-converted", 
+  			  	"REFERRAL_STARTED": "email/referral-started"
+  			  }
+  		  }
+  	  }
     }
   },
-  "email": {
-  	"title": "Customize Emails",
-  	"type": "object",
-  	"properties": {
-  		"templateMappings": {
-  			"type": "object",
-  			"description": "Available Templates",
-  			"default": {
-  				"REFERRER_REWARD_LIMIT_REACHED": "email/referral-reward-limit", 
-  				"REFERRAL_CONVERTED": "email/referral-converted", 
-  				"REFERRAL_STARTED": "email/referral-started"
-  			}
-  		}
-  	}
-  },
-  "required": ["shareMessaging", "widgetCustomization"]
+  "required": ["shareMessaging", "widgetCustomization", "email"]
 }
