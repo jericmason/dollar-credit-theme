@@ -132,7 +132,7 @@
 	              { "$ref" : "#/definitions/emailConfiguration" }
 	            ]
 	        },
-            "themeMapping": { "default": "emails/referrer-reward-limit" }
+            "themeMapping": { "default": "email/referrer-reward-limit" }
           }
         },
         "REFERRAL_CONVERTED": {
@@ -150,7 +150,7 @@
 	              { "$ref" : "#/definitions/emailConfiguration" }
 	            ]
 	        },
-            "themeMapping": { "default": "emails/referral-converted" }
+            "themeMapping": { "default": "email/referral-converted" }
           }
         },
         "REFERRAL_STARTED": {
@@ -168,7 +168,7 @@
 	              { "$ref" : "#/definitions/emailConfiguration" }
 	            ]
 	        },
-            "themeMapping": { "default": "emails/referral-converted" }
+            "themeMapping": { "default": "email/referral-converted" }
           }
         }
       } 
