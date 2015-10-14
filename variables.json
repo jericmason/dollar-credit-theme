@@ -10,31 +10,31 @@
           "type": "string",
           "description": "Email share subject",
           "minLength": 4,
-          "default": "Get ${{math programDetails.referredRewardDetails.credit ' / 100'}} off {{companyName}}"
+          "default": "Get {{companyName}} for {{programDetails.referredRewardDetails.discountPercent}}% less!"
         },
         "emailShareBody": {
           "type": "string",
           "description": "Email share body",
           "minLength": 4,
-          "default": "Sign up for a {{companyName}} account and we both get ${{math programDetails.referredRewardDetails.credit ' / 100'}} free credit. Use this link {{shareLinks.emailShareLink}}"
+          "default": "Sign up for a {{companyName}} account and we both get {{programDetails.referredRewardDetails.discountPercent}}% off our monthly bill. Use this link {{shareLinks.emailShareLink}}"
         },
         "facebookShareSubject": {
           "type": "string",
           "description": "Facebook share subject",
           "minLength": 4,
-          "default": "Get ${{math programDetails.referredRewardDetails.credit ' / 100'}} off {{companyName}}"
+          "default": "Get {{companyName}} for {{programDetails.referredRewardDetails.discountPercent}}% less!"
         },
         "facebookShareBody": {
           "type": "string",
           "description": "Facebook share subject",
           "minLength": 4,
-          "default": "Sign up for a {{companyName}} account and we both get ${{math programDetails.referredRewardDetails.credit ' / 100'}} free credit. Use this link {{shareLinks.facebookShareLink}}"
+          "default": "Sign up for a {{companyName}} account and we both get {{programDetails.referredRewardDetails.discountPercent}}% off our monthly bill. Use this link {{shareLinks.facebookShareLink}}"
         },
         "twitterShareBody": {
           "type": "string",
           "description": "Twitter share body",
           "minLength": 4,
-          "default": "Sign up for a {{companyName}} account and we both get ${{math programDetails.referredRewardDetails.credit ' / 100'}} free credit. Use this link {{shareLinks.twitterShareLink}}"
+          "default": "Sign up for a {{companyName}} account and we both get {{programDetails.referredRewardDetails.discountPercent}}% off our monthly bill. Use this link {{shareLinks.twitterShareLink}}"
         }
       },
       "required": ["emailShareBody", "emailShareSubject", "facebookShareSubject", "facebookShareBody", "twitterShareBody"]
@@ -56,7 +56,6 @@
             "Tahoma",
             "Verdana",
             "Georgia"
-            
           ],
           "options": {
             "enum_titles": [
@@ -86,7 +85,7 @@
           "minLength": 1,
           "format": "textarea",
           "title": "Heading Text:",
-          "default" : "Give ${{math programDetails.referredRewardDetails.credit ' / 100'}} and Get ${{math programDetails.referrerRewardDetails.credit ' / 100'}}!",
+          "default" : "Give {{programDetails.referredRewardDetails.discountPercent}}% off and Get {{programDetails.referrerRewardDetails.discountPercent}}% off!",
           "options": {
             "input_height": "100px",
             "validate": ["handlebars"]
@@ -97,7 +96,7 @@
           "minLength": 1,
           "format": "textarea",
           "title": "Body Text:",
-          "default" : "Give a friend ${{math programDetails.referredRewardDetails.credit ' / 100'}} credit off {{companyName}} and receive ${{math programDetails.referrerRewardDetails.credit ' / 100'}} for yourself when they pay their first bill.",
+          "default" : "Share {{programDetails.referredRewardDetails.discountPercent}}% off {{companyName}} and receive {{programDetails.referrerRewardDetails.discountPercent}}% off your monthly bill when they pay their first bill.",
           "options": {
             "input_height": "100px",
             "validate": ["handlebars"]
@@ -105,9 +104,8 @@
         },
         "shareCodeDetails": {
           "type": "string",
-          "minLength": 1,
           "format": "textarea",
-          "title": "Share Code Text",
+          "title": "Call To Action Text",
           "default": "Share the link below or use the code {{user.referralCode}}",
           "options": {
             "input_height": "100px",
@@ -117,19 +115,90 @@
       }
     },
     "email": {
-  	  "title": "Customize Emails",
-  	  "type": "object",
-  	  "properties": {
-  		  "templateMappings": {
-  			  "type": "object",
-  			  "description": "Available Templates",
-  			  "default": {
-  			  	"REFERRER_REWARD_LIMIT_REACHED": "email/referral-reward-limit", 
-  				  "REFERRAL_CONVERTED": "email/referral-converted", 
-  			  	"REFERRAL_STARTED": "email/referral-started"
-  			  }
-  		  }
-  	  }
+      "type": "object",
+      "properties": {
+        "REFERRER_REWARD_LIMIT_REACHED": {
+          "type": "object",
+          "properties": {
+            "configuration" : {
+	            "allOf" : [
+   	              {
+	                "properties" : {
+                      "subject" : {
+		                "default": "You have reached max level!"
+	                  }
+	                }
+	              },
+	              { "$ref" : "#/definitions/emailConfiguration" }
+	            ]
+	        },
+            "themeMapping": { "default": "emails/referrer-reward-limit" }
+          }
+        },
+        "REFERRAL_CONVERTED": {
+          "type": "object",
+          "properties": {
+            "configuration" : {
+	            "allOf" : [
+   	              {
+	                "properties" : {
+                      "subject" : {
+		                "default": "{{convertedReferral.referredUser.firstName}} has converted!"
+	                  }
+	                }
+	              },
+	              { "$ref" : "#/definitions/emailConfiguration" }
+	            ]
+	        },
+            "themeMapping": { "default": "emails/referral-converted" }
+          }
+        },
+        "REFERRAL_STARTED": {
+          "type": "object",
+          "properties": {
+            "configuration" : {
+	            "allOf" : [
+   	              {
+	                "properties" : {
+                      "subject" : {
+		                "default": "{{newReferral.referredUser.firstName}} signed up!"
+	                  }
+	                }
+	              },
+	              { "$ref" : "#/definitions/emailConfiguration" }
+	            ]
+	        },
+            "themeMapping": { "default": "emails/referral-converted" }
+          }
+        }
+      } 
+    }
+  },
+  "definitions": {
+    "emailConfiguration" : {
+      "type": "object",
+      "title": "Email Defaults",
+      "properties": {
+        "fromName": {
+          "type": "string",
+          "title": "From Name",
+          "default": "test@saaquat.ch"
+        },
+        "fromAddress": {
+          "type": "string",
+          "title": "From Address",
+          "default": "{{companyName}}"
+        },
+        "subject": {
+          "type": "string",
+          "title": "Subject",
+          "format": "textarea",
+          "default": "Referral Update",
+          "options": {
+            "input_height": "50px"
+          } 
+        }
+      }
     }
   },
   "required": ["shareMessaging", "widgetCustomization", "email"]
