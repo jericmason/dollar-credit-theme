@@ -124,13 +124,13 @@
 	          "allOf" : [
    	            {
 	              "properties" : {
-                    "subject" : { "default": "You have reached max level!" }
+                    "subject" : { "default": "You have reached max level!" },
+                    "themeMapping": { "default": "email/referrer-reward-limit" }
 	              }
 	            },
 	            { "$ref" : "#/definitions/email/definitions/configuration" }
 	          ]
-	        },
-            "themeMapping": { "default": "email/referrer-reward-limit" }
+	        }
           }
         },
         "REFERRAL_CONVERTED": {
@@ -140,7 +140,8 @@
 	          "allOf" : [
    	            {
 	              "properties" : {
-                    "subject" : { "default": "{{newReferral.referredUser.firstName}} signed up!" }
+                    "subject" : { "default": "Congrats! Your monthly {{companyName}} bill is now {{programDetails.referrerRewardDetails.discountPercent}} signed up!" },
+                    "themeMapping": { "default": "email/referral-converted" }
 	              }
 	            },
 	            { "$ref" : "#/definitions/email/definitions/configuration" }
@@ -150,17 +151,16 @@
 	          "allOf" : [
 	            {
 	              "properties" : {
-	                "headerImageUrl" : { "default" : "//app.referrralsaasquatch.com/referral-started.png" },
+	                "headerImageUrl" : { "default" : "//app.referrralsaasquatch.com/referral-converted.png" },
 	                "headerTitle" : { "default" : "Congratulations" },
 	                "headerBody" : { "default" : "Your friend has signed up for a {{companyName}} Account!" },
-	                "mainBody" : { "default" : "You have now earned {{programDetails.referredRewardDetails.discountPercent}} off your next monthly bill. Refer more friends to save even more!" }
+	                "mainBody" : { "default" : "You have now earned {{programDetails.referrerRewardDetails.discountPercent}} off your next monthly bill. Refer more friends to save even more!" }
 	              }
 	            },
 	            { "$ref" : "#/definitions/email/definitions/generalContent" },
 	            { "$ref" : "#/definitions/email/definitions/shareContent" }
 	          ]
-	        },
-            "themeMapping": { "default": "email/referral-converted" }
+	        }
           }
         },
         "REFERRAL_STARTED": {
@@ -170,7 +170,8 @@
 	          "allOf" : [
    	            {
 	              "properties" : {
-                    "subject" : { "default": "{{newReferral.referredUser.firstName}} signed up!" }
+                    "subject" : { "default": "​{{newReferral.referredUser.firstName}}​ helped you get one step closer to saving {{programDetails.referrerRewardDetails.discountPercent}}% on {{companyName}}​!  signed up!" },
+                    "themeMapping": { "default": "email/referral-started" }
 	              }
 	            },
 	            { "$ref" : "#/definitions/email/definitions/configuration" }
@@ -181,16 +182,15 @@
 	            {
 	              "properties" : {
 	                "headerImageUrl" : { "default" : "//app.referrralsaasquatch.com/referral-started.png" },
-	                "headerTitle" : { "default" : "Congratulations" },
-	                "headerBody" : { "default" : "Your friend has signed up for a {{companyName}} Account!" },
-	                "mainBody" : { "default" : "You have now earned {{programDetails.referredRewardDetails.discountPercent}} off your next monthly bill. Refer more friends to save even more!" }
+	                "headerTitle" : { "default" : "Good News!" },
+	                "headerBody" : { "default" : " Your friend has signed up for a free account with {{companyName}}!" },
+	                "mainBody" : { "default" : "{{convertedReferral.referredUser.firstName}} is currently trying out {{companyName}}. As a thank you from us, if they become a paying user, you will automatically receive a {{programDetails.referrerRewardDetails.discountPercent}} discount!" }
 	              }
 	            },
 	            { "$ref" : "#/definitions/email/definitions/generalContent" },
 	            { "$ref" : "#/definitions/email/definitions/shareContent" }
 	          ]
-	        },
-            "themeMapping": { "default": "email/referral-started" }
+	        }
           }
         }
       } 
@@ -206,13 +206,13 @@
             "fromName": {
               "type": "string",
               "title": "From Name",
-              "default": "test@saaquat.ch",
+              "default": "{{companyName}}",
               "propertyOrder": 1
             },
             "fromAddress": {
               "type": "string",
               "title": "From Address",
-              "default": "{{companyName}}",
+              "default": "referral@mail.saasquat.ch",
               "propertyOrder": 2
             },
             "subject": {
@@ -223,6 +223,11 @@
               "propertyOrder": 3,
               "options": {
                 "input_height": "50px"
+              }
+            },
+            "themeMapping": { 
+              "options": {
+                "hidden": true
               }
             }
           } 
